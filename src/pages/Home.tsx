@@ -1,5 +1,5 @@
 // src/pages/Home.tsx
-import React from "react";
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { useSpring, animated } from "react-spring";
@@ -8,10 +8,20 @@ import Box from "@mui/material/Box";
 import logo from "../assets/r3.png";
 import Button from "@mui/material/Button";
 import { GitHub, LinkedIn } from "@mui/icons-material";
-import leetcode from '../assets/leetcode.svg'; // Import the LeetCode SVG as a module
+import leetcode from "../assets/leetcode.svg"; // Import the LeetCode SVG as a module
+import ContactDialog from "../components/ContactDialog";
 
 const Home: React.FC = () => {
+  const [open, setOpen] = useState(false);
   const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Container>
@@ -85,7 +95,7 @@ const Home: React.FC = () => {
                   component="img"
                   src={leetcode}
                   alt="LeetCode"
-                  sx={{ width: 24, height: 24, filter: 'invert(1)' }} // Invert color to make it white
+                  sx={{ width: 24, height: 24, filter: "invert(1)" }} // Invert color to make it white
                 />
               </Button>
             </Box>
@@ -98,7 +108,7 @@ const Home: React.FC = () => {
                 variant="outlined"
                 color="secondary"
                 style={{ marginRight: "1rem" }}
-                href="mailto:your-email@example.com" // Replace with your email or contact page
+                onClick={handleClickOpen} // Open the dialog on button click
               >
                 Contact Me
               </Button>
@@ -133,6 +143,7 @@ const Home: React.FC = () => {
           </Grid>
         </Grid>
       </animated.div>
+      <ContactDialog open={open} onClose={handleClose} />
     </Container>
   );
 };
