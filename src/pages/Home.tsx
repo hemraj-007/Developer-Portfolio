@@ -1,4 +1,3 @@
-// src/pages/Home.tsx
 import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -10,10 +9,14 @@ import Button from "@mui/material/Button";
 import { GitHub, LinkedIn } from "@mui/icons-material";
 import leetcode from "../assets/leetcode.svg"; // Import the LeetCode SVG as a module
 import ContactDialog from "../components/ContactDialog";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 const Home: React.FC = () => {
   const [open, setOpen] = useState(false);
   const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,39 +43,42 @@ const Home: React.FC = () => {
             container
             direction="column"
             justifyContent="center"
-            alignItems={{ xs: "center", md: "flex-start" }}
+            alignItems={isMobile ? "center" : "flex-start"}
             style={{ height: "100%" }} // Ensure the grid item takes up the full height
           >
             <Typography
               variant="h3"
               gutterBottom
-              style={{ color: "#ffffff", fontWeight: "bold" }}
+              style={{ color: "#ffffff", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
             >
               Hello,
             </Typography>
             <Typography
               variant="h3"
               gutterBottom
-              style={{ color: "#ffffff", fontWeight: "bold" }}
+              style={{ color: "#ffffff", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
             >
               This is <span>HEMRAJ BHATIA</span>,
             </Typography>
             <Typography
               variant="h3"
               gutterBottom
-              style={{ color: "#00FF7F", fontWeight: "bold" }}
+              style={{ color: "#00FF7F", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
             >
               I'm a Professional Software Developer.
             </Typography>
             <Box
               mt={2}
               display="flex"
-              justifyContent={{ xs: "center", md: "flex-start" }}
+              justifyContent={isMobile ? "center" : "flex-start"}
+              flexDirection="row"
+              alignItems="center"
+              gap="1rem"
+              flexWrap="wrap"
             >
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginRight: "1rem" }}
                 href="https://github.com/hemraj-007" // Replace with your GitHub URL
               >
                 <GitHub />
@@ -80,7 +86,6 @@ const Home: React.FC = () => {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginRight: "1rem" }}
                 href="https://www.linkedin.com/in/hemraj7/" // Replace with your LinkedIn URL
               >
                 <LinkedIn />
@@ -88,7 +93,6 @@ const Home: React.FC = () => {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ marginRight: "1rem" }}
                 href="https://leetcode.com/u/hemrajbhatia38/" // Replace with your LeetCode URL
               >
                 <Box
@@ -102,12 +106,14 @@ const Home: React.FC = () => {
             <Box
               mt={4}
               display="flex"
-              justifyContent={{ xs: "center", md: "flex-start" }}
+              justifyContent={isMobile ? "center" : "flex-start"}
+              flexDirection="row"
+              alignItems="center"
+              gap="1rem"
             >
               <Button
                 variant="outlined"
                 color="secondary"
-                style={{ marginRight: "1rem" }}
                 onClick={handleClickOpen} // Open the dialog on button click
               >
                 Contact Me
