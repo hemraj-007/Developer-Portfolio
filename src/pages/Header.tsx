@@ -1,3 +1,4 @@
+// src/components/Header.tsx
 import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
@@ -39,25 +40,25 @@ const Header: React.FC = () => {
         <ListItem button component={RouterLink} to="/">
           <ListItemText
             primary="Home"
-            sx={{ color: theme.palette.text.primary }}
+            sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
           />
         </ListItem>
         <ListItem button component={RouterLink} to="/about">
           <ListItemText
             primary="About"
-            sx={{ color: theme.palette.text.primary }}
+            sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
           />
         </ListItem>
         <ListItem button component={RouterLink} to="/experience">
           <ListItemText
             primary="Experience"
-            sx={{ color: theme.palette.text.primary }}
+            sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
           />
         </ListItem>
         <ListItem button component={RouterLink} to="/projects">
           <ListItemText
             primary="Projects & Skills"
-            sx={{ color: theme.palette.text.primary }}
+            sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
           />
         </ListItem>
       </List>
@@ -68,8 +69,12 @@ const Header: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar
-        position="static"
-        sx={{ backgroundColor: theme.palette.primary.main }}
+        position="fixed" // Use fixed position to blend with the page
+        sx={{
+          backgroundColor: theme.palette.primary.main,
+          boxShadow: "none", // Remove the shadow for a seamless look
+          borderBottom: "none", // Remove the border for a seamless look
+        }}
       >
         <Toolbar>
           <Typography
@@ -80,6 +85,11 @@ const Header: React.FC = () => {
               flexGrow: 1,
               textDecoration: "none",
               color: theme.palette.text.primary,
+              fontWeight: "bold",
+              fontSize: "1.5rem", // Make the name slightly larger
+              "&:hover": {
+                color: "#00FF7F",
+              },
             }}
           >
             Hemraj Bhatia
@@ -113,7 +123,7 @@ const Header: React.FC = () => {
                 color="inherit"
                 component={RouterLink}
                 to="/"
-                sx={{ color: theme.palette.text.primary }}
+                sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
               >
                 Home
               </Button>
@@ -121,7 +131,7 @@ const Header: React.FC = () => {
                 color="inherit"
                 component={RouterLink}
                 to="/about"
-                sx={{ color: theme.palette.text.primary }}
+                sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
               >
                 About
               </Button>
@@ -129,7 +139,7 @@ const Header: React.FC = () => {
                 color="inherit"
                 component={RouterLink}
                 to="/experience"
-                sx={{ color: theme.palette.text.primary }}
+                sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
               >
                 Experience
               </Button>
@@ -137,7 +147,7 @@ const Header: React.FC = () => {
                 color="inherit"
                 component={RouterLink}
                 to="/projects"
-                sx={{ color: theme.palette.text.primary }}
+                sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
               >
                 Projects & Skills
               </Button>
@@ -145,6 +155,8 @@ const Header: React.FC = () => {
           )}
         </Toolbar>
       </AppBar>
+      <Toolbar />{" "}
+      {/* This Toolbar component is added to ensure the content doesn't hide under the AppBar */}
     </ThemeProvider>
   );
 };

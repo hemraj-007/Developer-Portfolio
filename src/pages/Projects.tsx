@@ -1,5 +1,5 @@
 // src/pages/Projects.tsx
-import React from "react";
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
@@ -47,6 +47,24 @@ const StyledCard = styled(Card)(() => ({
   },
 }));
 
+const SkillCard = styled(Card)(() => ({
+  backgroundColor: "#34495e",
+  color: "#ffffff",
+  borderRadius: "10px",
+  width: 120, // Fixed width for each card
+  height: 120, // Fixed height for each card
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "center",
+  margin: "0 1rem",
+  transition: "transform 0.3s, box-shadow 0.3s",
+  "&:hover": {
+    transform: "translateY(-5px)",
+    boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)",
+  },
+}));
+
 const skills = {
   payInstaWallet: [
     "MERN Stack",
@@ -72,27 +90,28 @@ const skills = {
 
 const Projects: React.FC = () => {
   const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
+  const [isHovered, setIsHovered] = useState(false);
 
   const skillIcons = [
-    { icon: <FaReact size={50} />, label: "React" },
-    { icon: <SiTypescript size={50} />, label: "TypeScript" },
-    { icon: <FaNodeJs size={50} />, label: "Node.js" },
-    { icon: <SiNextdotjs size={50} />, label: "Next.js" },
-    { icon: <SiExpress size={50} />, label: "Express.js" },
-    { icon: <SiMongodb size={50} />, label: "MongoDB" },
-    { icon: <SiRecoil size={50} />, label: "Recoil" },
-    { icon: <FaJs size={50} />, label: "JavaScript" },
-    { icon: <SiMui size={50} />, label: "Material UI" },
-    { icon: <SiTailwindcss size={50} />, label: "Tailwind CSS" },
-    { icon: <SiCplusplus size={50} />, label: "C++" },
-    { icon: <FaGitAlt size={50} />, label: "Git" },
-    { icon: <SiPostman size={50} />, label: "Postman" },
-    { icon: <SiPrisma size={50} />, label: "Prisma" },
-    { icon: <SiPostgresql size={50} />, label: "PostgreSQL" },
-    { icon: <FaDocker size={50} />, label: "Docker" },
-    { icon: <FaHtml5 size={50} />, label: "HTML5" },
-    { icon: <FaCss3Alt size={50} />, label: "CSS3" },
-    { icon: <FaPython size={50} />, label: "Python" },
+    { icon: <FaReact size={40} />, label: "React" },
+    { icon: <SiTypescript size={40} />, label: "TypeScript" },
+    { icon: <FaNodeJs size={40} />, label: "Node.js" },
+    { icon: <SiNextdotjs size={40} />, label: "Next.js" },
+    { icon: <SiExpress size={40} />, label: "Express.js" },
+    { icon: <SiMongodb size={40} />, label: "MongoDB" },
+    { icon: <SiRecoil size={40} />, label: "Recoil" },
+    { icon: <FaJs size={40} />, label: "JavaScript" },
+    { icon: <SiMui size={40} />, label: "Material UI" },
+    { icon: <SiTailwindcss size={40} />, label: "Tailwind CSS" },
+    { icon: <SiCplusplus size={40} />, label: "C++" },
+    { icon: <FaGitAlt size={40} />, label: "Git" },
+    { icon: <SiPostman size={40} />, label: "Postman" },
+    { icon: <SiPrisma size={40} />, label: "Prisma" },
+    { icon: <SiPostgresql size={40} />, label: "PostgreSQL" },
+    { icon: <FaDocker size={40} />, label: "Docker" },
+    { icon: <FaHtml5 size={40} />, label: "HTML5" },
+    { icon: <FaCss3Alt size={40} />, label: "CSS3" },
+    { icon: <FaPython size={40} />, label: "Python" },
   ];
 
   return (
@@ -135,7 +154,7 @@ const Projects: React.FC = () => {
                   <Button
                     variant="contained"
                     color="primary"
-                    href="https://github.com/your-username/pay-insta-wallet" // Replace with your GitHub URL
+                    href="https://github.com/hemraj-007/pay-insta-wallet" // Replace with your GitHub URL
                     startIcon={<GitHubIcon />}
                     style={{ marginTop: "1rem" }}
                   >
@@ -180,7 +199,7 @@ const Projects: React.FC = () => {
                   <Button
                     variant="contained"
                     color="primary"
-                    href="https://github.com/your-username/dialoge-den-blog" // Replace with your GitHub URL
+                    href="https://github.com/hemraj-007/DialogDen-blog-page" // Replace with your GitHub URL
                     startIcon={<GitHubIcon />}
                     style={{ marginTop: "1rem" }}
                   >
@@ -198,18 +217,21 @@ const Projects: React.FC = () => {
         >
           Skills
         </Typography>
-        <Box mt={4} position="relative" overflow="hidden">
-          <Marquee speed={30} gradient={false}>
+        <Box
+          mt={4}
+          position="relative"
+          overflow="hidden"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <Marquee
+            speed={30}
+            gradient={false}
+            pauseOnHover={true}
+            play={!isHovered}
+          >
             {skillIcons.map((skill, index) => (
-              <Box
-                key={index}
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                justifyContent="center"
-                mx={2}
-                p={2}
-              >
+              <SkillCard key={index}>
                 {skill.icon}
                 <Typography
                   variant="subtitle1"
@@ -217,7 +239,7 @@ const Projects: React.FC = () => {
                 >
                   {skill.label}
                 </Typography>
-              </Box>
+              </SkillCard>
             ))}
           </Marquee>
         </Box>

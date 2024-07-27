@@ -1,30 +1,50 @@
-// src/theme.ts
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#001f3f', // Navy Blue
+      main: "#000a1f", // Darker Navy Blue
     },
     background: {
-      default: '#001f3f',
+      default: "#000a1f", // Darker background
+      paper: "#00122f", // Darker paper background for cards, dialogs, etc.
     },
     text: {
-      primary: '#ffffff',
+      primary: "#ffffff",
+      secondary: "#b0bec5", // Slightly lighter color for secondary text
     },
   },
   typography: {
     h2: {
-      color: '#ffffff',
+      color: "#ffffff",
     },
     h3: {
-      color: '#ffffff',
+      color: "#ffffff",
     },
     body1: {
-      color: '#ffffff',
+      color: "#ffffff",
     },
     body2: {
-      color: '#ffffff',
+      color: "#b0bec5", // Use secondary text color for body2
+    },
+  },
+  components: {
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#00122f", // Darker paper background for components like cards, dialogs, etc.
+        },
+      },
+    },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          color: "#ffffff",
+          "&:hover": {
+            backgroundColor: "#003366", // Darker hover effect for buttons
+          },
+        },
+      },
     },
   },
 });
