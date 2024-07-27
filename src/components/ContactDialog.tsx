@@ -6,9 +6,12 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
+import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import { styled } from "@mui/material/styles";
 import emailjs from "emailjs-com";
+import { AccountCircle, Email, Message } from "@mui/icons-material";
+import InputAdornment from "@mui/material/InputAdornment";
 
 interface ContactDialogProps {
   open: boolean;
@@ -18,13 +21,21 @@ interface ContactDialogProps {
 const StyledDialog = styled(Dialog)({
   "& .MuiPaper-root": {
     borderRadius: "20px",
-    backgroundColor: "#2c3e50", 
-    color: "#ffffff", 
-    width: "400px", 
-    height: "400px", 
-    maxWidth: "none", 
+    backgroundColor: "#2c3e50",
+    color: "#ffffff",
+    width: "400px",
+    height: "auto",
+    maxWidth: "none",
   },
 });
+
+const StyledButton = styled(Button)(() => ({
+  color: "#ffffff",
+  "&:hover": {
+    backgroundColor: "#00FF7F",
+    color: "#2c3e50",
+  },
+}));
 
 const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
   const [formData, setFormData] = useState({
@@ -45,10 +56,10 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
 
     emailjs
       .send(
-        "your_service_id", // Replace with your EmailJS service ID
-        "your_template_id", // Replace with your EmailJS template ID
+        "service_un3r2oe", // Replace with your EmailJS service ID
+        "template_dg8pi3n", // Replace with your EmailJS template ID
         formData,
-        "your_user_id" // Replace with your EmailJS user ID
+        "gWCWHsKHJULQONaMw" // Replace with your EmailJS user ID
       )
       .then((response) => {
         console.log("SUCCESS!", response.status, response.text);
@@ -73,11 +84,25 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
 
   return (
     <StyledDialog open={open} onClose={onClose}>
-      <DialogTitle sx={{ color: "#ffffff" }}>Contact Me</DialogTitle>
+      <DialogTitle sx={{ color: "#ffffff", textAlign: "center" }}>
+        Contact Me
+      </DialogTitle>
       <DialogContent>
+        <Typography
+          variant="body2"
+          align="center"
+          sx={{ color: "#ffffff", marginBottom: "1rem" }}
+        >
+          Please fill out the form below to get in touch with me.
+        </Typography>
         <Box
           component="form"
-          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: 2,
+            padding: "0 1rem",
+          }}
           onSubmit={handleSubmit}
         >
           <TextField
@@ -100,6 +125,11 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
                   "&.Mui-focused fieldset": { borderColor: "#00FF7F" },
                 },
               }, // Change border color
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle style={{ color: "#ffffff" }} />
+                </InputAdornment>
+              ),
             }}
           />
           <TextField
@@ -121,6 +151,11 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
                   "&.Mui-focused fieldset": { borderColor: "#00FF7F" },
                 },
               }, // Change border color
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Email style={{ color: "#ffffff" }} />
+                </InputAdornment>
+              ),
             }}
           />
           <TextField
@@ -144,15 +179,16 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
                   "&.Mui-focused fieldset": { borderColor: "#00FF7F" },
                 },
               }, // Change border color
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Message style={{ color: "#ffffff" }} />
+                </InputAdornment>
+              ),
             }}
           />
-          <DialogActions>
-            <Button onClick={onClose} sx={{ color: "#ffffff" }}>
-              Cancel
-            </Button>
-            <Button type="submit" sx={{ color: "#ffffff" }}>
-              Send
-            </Button>
+          <DialogActions sx={{ justifyContent: "center" }}>
+            <StyledButton onClick={onClose}>Cancel</StyledButton>
+            <StyledButton type="submit">Send</StyledButton>
           </DialogActions>
         </Box>
       </DialogContent>
