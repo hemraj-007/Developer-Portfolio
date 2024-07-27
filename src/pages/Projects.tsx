@@ -4,12 +4,14 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { useSpring, animated } from "react-spring";
+import { useTrail, animated } from "react-spring";
 import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import Button from "@mui/material/Button";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import Marquee from "react-fast-marquee";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 import {
   FaReact,
   FaNodeJs,
@@ -34,7 +36,7 @@ import {
   SiPostman,
 } from "react-icons/si";
 
-const StyledCard = styled(Card)(() => ({
+const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: "#2c3e50",
   color: "#ffffff",
   borderRadius: "10px",
@@ -43,6 +45,9 @@ const StyledCard = styled(Card)(() => ({
   "&:hover": {
     transform: "translateY(-5px)",
     boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)",
+  },
+  [theme.breakpoints.down("sm")]: {
+    padding: "1rem",
   },
 }));
 
@@ -66,10 +71,11 @@ const SkillCard = styled(Card)(() => ({
 
 const skills = {
   payInstaWallet: [
-    "MERN Stack",
+    "React Js",
+    "Express Js",
+    "Node Js",
     "JWT Authentication",
     "Zod Validation",
-    "CORS",
     "MongoDB",
     "React",
     "Tailwind CSS",
@@ -87,9 +93,33 @@ const skills = {
   ],
 };
 
+const projects = [
+  {
+    title: "Pay-Insta-Wallet",
+    description:
+      "Developed a Payment system using the MERN stack, featuring essential digital wallet functionalities from user registration to transactions. Implemented robust security with JWT authentication, Zod validation, and CORS, combined with MongoDB for efficient data management. Enhanced user interface and experience with React and Tailwind CSS, ensuring a responsive and intuitive design.",
+    skills: skills.payInstaWallet,
+    githubUrl: "https://github.com/hemraj-007/pay-insta-wallet",
+  },
+  {
+    title: "DialogeDen Blog",
+    description:
+      "Created a Medium-style blog with React and Tailwind CSS on the front-end and Cloudflare Workers for serverless back-end, ensuring type-safe data handling with TypeScript and Zod validation. Optimized database interactions using Prisma ORM with a PostgreSQL database and secured user authentication with JWTs. Streamlined development by packaging common validation logic into an npm package, utilizing a monorepo setup for efficient full-stack application maintenance.",
+    skills: skills.dialogeDenBlog,
+    githubUrl: "https://github.com/hemraj-007/DialogDen-blog-page",
+  },
+];
+
 const Projects: React.FC = () => {
-  const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [isHovered, setIsHovered] = useState(false);
+
+  const trail = useTrail(projects.length, {
+    from: { opacity: 0, transform: "translateY(20px)" },
+    to: { opacity: 1, transform: "translateY(0)" },
+    delay: 200,
+  });
 
   const skillIcons = [
     { icon: <FaReact size={40} />, label: "React" },
@@ -115,134 +145,97 @@ const Projects: React.FC = () => {
 
   return (
     <Container>
-      <animated.div style={props}>
-        <Typography variant="h3" gutterBottom style={{ color: "#ffffff" }}>
-          Projects
-        </Typography>
-        <Box mb={4}>
-          <StyledCard>
-            <CardContent>
-              <Box display="flex" justifyContent="space-between">
-                <Box>
-                  <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                    Pay-Insta-Wallet
-                  </Typography>
-                  <Typography variant="body1" paragraph>
-                    Developed a Payment system using the MERN stack, featuring
-                    essential digital wallet functionalities from user
-                    registration to transactions. Implemented robust security
-                    with JWT authentication, Zod validation, and CORS, combined
-                    with MongoDB for efficient data management. Enhanced user
-                    interface and experience with React and Tailwind CSS,
-                    ensuring a responsive and intuitive design.
-                  </Typography>
-                  <Box>
-                    {skills.payInstaWallet.map((skill) => (
-                      <Chip
-                        key={skill}
-                        label={skill}
-                        style={{
-                          marginRight: "0.5rem",
-                          marginBottom: "0.5rem",
-                          backgroundColor: "#00FF7F",
-                          color: "#2c3e50",
-                        }}
-                      />
-                    ))}
-                  </Box>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href="https://github.com/hemraj-007/pay-insta-wallet" // Replace with your GitHub URL
-                    startIcon={<GitHubIcon />}
-                    style={{ marginTop: "1rem" }}
-                  >
-                    View on GitHub
-                  </Button>
-                </Box>
-              </Box>
-            </CardContent>
-          </StyledCard>
-          <StyledCard>
-            <CardContent>
-              <Box display="flex" justifyContent="space-between">
-                <Box>
-                  <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                    DialogeDen Blog
-                  </Typography>
-                  <Typography variant="body1" paragraph>
-                    Created a Medium-style blog with React and Tailwind CSS on
-                    the front-end and Cloudflare Workers for serverless
-                    back-end, ensuring type-safe data handling with TypeScript
-                    and Zod validation. Optimized database interactions using
-                    Prisma ORM with a PostgreSQL database and secured user
-                    authentication with JWTs. Streamlined development by
-                    packaging common validation logic into an npm package,
-                    utilizing a monorepo setup for efficient full-stack
-                    application maintenance.
-                  </Typography>
-                  <Box>
-                    {skills.dialogeDenBlog.map((skill) => (
-                      <Chip
-                        key={skill}
-                        label={skill}
-                        style={{
-                          marginRight: "0.5rem",
-                          marginBottom: "0.5rem",
-                          backgroundColor: "#00FF7F",
-                          color: "#2c3e50",
-                        }}
-                      />
-                    ))}
-                  </Box>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href="https://github.com/hemraj-007/DialogDen-blog-page" // Replace with your GitHub URL
-                    startIcon={<GitHubIcon />}
-                    style={{ marginTop: "1rem" }}
-                  >
-                    View on GitHub
-                  </Button>
-                </Box>
-              </Box>
-            </CardContent>
-          </StyledCard>
-        </Box>
-        <Typography
-          variant="h4"
-          gutterBottom
-          style={{ color: "#ffffff", marginTop: "2rem" }}
-        >
-          Skills
-        </Typography>
-        <Box
-          mt={4}
-          position="relative"
-          overflow="hidden"
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <Marquee
-            speed={30}
-            gradient={false}
-            pauseOnHover={true}
-            play={!isHovered}
-          >
-            {skillIcons.map((skill, index) => (
-              <SkillCard key={index}>
-                {skill.icon}
-                <Typography
-                  variant="subtitle1"
-                  style={{ color: "#00FF7F", marginTop: "0.5rem" }}
+      <Typography
+        variant="h3"
+        gutterBottom
+        style={{ color: "#ffffff", textAlign: isMobile ? "center" : "left" }}
+      >
+        Projects
+      </Typography>
+      <Box mb={4}>
+        {trail.map((style, index) => (
+          <animated.div style={style} key={index}>
+            <StyledCard>
+              <CardContent>
+                <Box
+                  display="flex"
+                  flexDirection={isMobile ? "column" : "row"}
+                  justifyContent="space-between"
                 >
-                  {skill.label}
-                </Typography>
-              </SkillCard>
-            ))}
-          </Marquee>
-        </Box>
-      </animated.div>
+                  <Box>
+                    <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                      {projects[index].title}
+                    </Typography>
+                    <Typography variant="body1" paragraph>
+                      {projects[index].description}
+                    </Typography>
+                    <Box>
+                      {projects[index].skills.map((skill) => (
+                        <Chip
+                          key={skill}
+                          label={skill}
+                          style={{
+                            marginRight: "0.5rem",
+                            marginBottom: "0.5rem",
+                            backgroundColor: "#00FF7F",
+                            color: "#2c3e50",
+                          }}
+                        />
+                      ))}
+                    </Box>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      href={projects[index].githubUrl} // Replace with your GitHub URL
+                      startIcon={<GitHubIcon />}
+                      style={{ marginTop: "1rem" }}
+                    >
+                      View on GitHub
+                    </Button>
+                  </Box>
+                </Box>
+              </CardContent>
+            </StyledCard>
+          </animated.div>
+        ))}
+      </Box>
+      <Typography
+        variant="h4"
+        gutterBottom
+        style={{
+          color: "#ffffff",
+          marginTop: "2rem",
+          textAlign: isMobile ? "center" : "left",
+        }}
+      >
+        Skills
+      </Typography>
+      <Box
+        mt={4}
+        position="relative"
+        overflow="hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <Marquee
+          speed={30}
+          gradient={false}
+          pauseOnHover={true}
+          play={!isHovered}
+        >
+          {skillIcons.map((skill, index) => (
+            <SkillCard key={index}>
+              {skill.icon}
+              <Typography
+                variant="subtitle1"
+                style={{ color: "#00FF7F", marginTop: "0.5rem" }}
+              >
+                {skill.label}
+              </Typography>
+            </SkillCard>
+          ))}
+        </Marquee>
+      </Box>
     </Container>
   );
 };

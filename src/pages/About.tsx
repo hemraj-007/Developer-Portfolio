@@ -7,29 +7,53 @@ import Box from "@mui/material/Box";
 import logo from "../assets/profile3.jpg";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { useInView } from "react-intersection-observer";
 
 const About: React.FC = () => {
-  const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const imageAnimation = useSpring({
+    transform: inView ? "scale(1) rotate(0deg)" : "scale(0.8) rotate(-10deg)",
+    opacity: inView ? 1 : 0,
+    config: { mass: 1, tension: 170, friction: 14 },
+  });
+
+  const textAnimation = useSpring({
+    opacity: inView ? 1 : 0,
+    transform: inView ? "translateY(0)" : "translateY(20px)",
+    config: { mass: 1, tension: 170, friction: 14 },
+  });
+
   return (
     <Container>
-      <animated.div style={props}>
+      <animated.div style={textAnimation}>
         <Typography
           variant="h3"
           gutterBottom
-          style={{ color: "#ffffff", fontSize: "2.5rem" }}
+          sx={{
+            color: "#ffffff",
+            fontSize: "2.5rem",
+            textAlign: isMobile ? "center" : "left",
+          }}
         >
           About Me
         </Typography>
-        <Box
-          display="flex"
-          flexDirection={isMobile ? "column" : "row-reverse"}
-          alignItems={isMobile ? "center" : "flex-start"}
-          mt={4}
-        >
-          <Box flexShrink={0} mb={isMobile ? 4 : 0} ml={isMobile ? 0 : 4}>
+      </animated.div>
+      <Box
+        display="flex"
+        flexDirection={isMobile ? "column" : "row-reverse"}
+        alignItems={isMobile ? "center" : "flex-start"}
+        mt={4}
+        ref={ref}
+      >
+        <Box flexShrink={0} mb={isMobile ? 4 : 0} ml={isMobile ? 0 : 4}>
+          <animated.div style={imageAnimation}>
             <Box
               component="img"
               alt="Hemraj Bhatia"
@@ -44,16 +68,22 @@ const About: React.FC = () => {
                 ml: isMobile ? 0 : 4,
               }}
             />
-          </Box>
-          <Box flex={1} pr={isMobile ? 0 : 4}>
+          </animated.div>
+        </Box>
+        <animated.div style={textAnimation}>
+          <Box
+            flex={1}
+            sx={{
+              backgroundColor: "#2c3e50",
+              borderRadius: "10px",
+              padding: "2rem",
+              color: "#ffffff",
+              textAlign: isMobile ? "center" : "left",
+            }}
+          >
             <Typography
               variant="body1"
-              style={{
-                color: "#ffffff",
-                fontSize: "1.2rem",
-                lineHeight: "2",
-                textAlign: isMobile ? "center" : "justify",
-              }}
+              sx={{ fontSize: "1.2rem", lineHeight: "2" }}
             >
               I'm Hemraj Bhatia, a passionate and dedicated Full Stack Developer
               with a keen interest in learning and exploring new technologies.
@@ -68,8 +98,8 @@ const About: React.FC = () => {
               projects.
             </Typography>
           </Box>
-        </Box>
-      </animated.div>
+        </animated.div>
+      </Box>
     </Container>
   );
 };

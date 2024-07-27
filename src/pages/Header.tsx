@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import Drawer from "@mui/material/Drawer";
+import Modal from "@mui/material/Modal";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -26,35 +26,55 @@ const Header: React.FC = () => {
 
   const drawer = (
     <Box
-      onClick={handleDrawerToggle}
       sx={{
-        width: 250,
+        width: "100%",
         padding: 2,
         backgroundColor: theme.palette.primary.main,
-        height: "100%",
+        position: "absolute",
+        bottom: 0,
+        borderRadius: "10px 10px 0 0",
       }}
-      role="presentation"
     >
       <List>
-        <ListItem button component={RouterLink} to="/">
+        <ListItem
+          button
+          component={RouterLink}
+          to="/"
+          onClick={handleDrawerToggle}
+        >
           <ListItemText
             primary="Home"
             sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
           />
         </ListItem>
-        <ListItem button component={RouterLink} to="/about">
+        <ListItem
+          button
+          component={RouterLink}
+          to="/about"
+          onClick={handleDrawerToggle}
+        >
           <ListItemText
             primary="About"
             sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
           />
         </ListItem>
-        <ListItem button component={RouterLink} to="/experience">
+        <ListItem
+          button
+          component={RouterLink}
+          to="/experience"
+          onClick={handleDrawerToggle}
+        >
           <ListItemText
             primary="Experience"
             sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
           />
         </ListItem>
-        <ListItem button component={RouterLink} to="/projects">
+        <ListItem
+          button
+          component={RouterLink}
+          to="/projects"
+          onClick={handleDrawerToggle}
+        >
           <ListItemText
             primary="Projects & Skills"
             sx={{ color: theme.palette.text.primary, fontWeight: "bold" }}
@@ -68,11 +88,11 @@ const Header: React.FC = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <AppBar
-        position="fixed" // Use fixed position to blend with the page
+        position="fixed"
         sx={{
           backgroundColor: theme.palette.primary.main,
-          boxShadow: "none", // Remove the shadow for a seamless look
-          borderBottom: "none", // Remove the border for a seamless look
+          boxShadow: "none",
+          borderBottom: "none",
         }}
       >
         <Toolbar>
@@ -85,7 +105,7 @@ const Header: React.FC = () => {
               textDecoration: "none",
               color: theme.palette.text.primary,
               fontWeight: "bold",
-              fontSize: "1.5rem", // Make the name slightly larger
+              fontSize: "1.5rem",
               "&:hover": {
                 color: "#00FF7F",
               },
@@ -102,19 +122,17 @@ const Header: React.FC = () => {
               >
                 <MenuIcon />
               </IconButton>
-              <Drawer
-                anchor="right"
+              <Modal
                 open={drawerOpen}
                 onClose={handleDrawerToggle}
                 sx={{
-                  "& .MuiDrawer-paper": {
-                    backgroundColor: theme.palette.primary.main,
-                    color: theme.palette.text.primary,
-                  },
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "flex-end",
                 }}
               >
                 {drawer}
-              </Drawer>
+              </Modal>
             </>
           ) : (
             <>
@@ -155,7 +173,6 @@ const Header: React.FC = () => {
         </Toolbar>
       </AppBar>
       <Toolbar />{" "}
-      {/* This Toolbar component is added to ensure the content doesn't hide under the AppBar */}
     </ThemeProvider>
   );
 };
