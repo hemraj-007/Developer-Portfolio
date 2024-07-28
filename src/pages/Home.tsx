@@ -7,14 +7,14 @@ import Box from "@mui/material/Box";
 import logo from "../assets/r3.png";
 import Button from "@mui/material/Button";
 import { GitHub, LinkedIn } from "@mui/icons-material";
-import leetcode from "../assets/leetcode.svg"; // Import the LeetCode SVG as a module
+import leetcode from "../assets/leetcode.svg";
 import ContactDialog from "../components/ContactDialog";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { motion } from "framer-motion";
 
 const Home: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -26,9 +26,11 @@ const Home: React.FC = () => {
     setOpen(false);
   };
 
+  const fadeIn = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
+
   return (
     <Container>
-      <animated.div style={props}>
+      <animated.div style={fadeIn}>
         <Grid
           container
           spacing={4}
@@ -46,27 +48,45 @@ const Home: React.FC = () => {
             alignItems={isMobile ? "center" : "flex-start"}
             style={{ height: "100%" }} // Ensure the grid item takes up the full height
           >
-            <Typography
-              variant="h3"
-              gutterBottom
-              style={{ color: "#ffffff", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
             >
-              Hello,
-            </Typography>
-            <Typography
-              variant="h3"
-              gutterBottom
-              style={{ color: "#ffffff", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
+              <Typography
+                variant="h3"
+                gutterBottom
+                style={{ color: "#ffffff", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
+              >
+                Hello,
+              </Typography>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
             >
-              This is <span>HEMRAJ BHATIA</span>,
-            </Typography>
-            <Typography
-              variant="h3"
-              gutterBottom
-              style={{ color: "#00FF7F", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
+              <Typography
+                variant="h3"
+                gutterBottom
+                style={{ color: "#ffffff", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
+              >
+                This is <span>HEMRAJ BHATIA</span>,
+              </Typography>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
-              I'm a Professional Software Developer.
-            </Typography>
+              <Typography
+                variant="h3"
+                gutterBottom
+                style={{ color: "#00FF7F", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
+              >
+                I'm a Professional Software Developer.
+              </Typography>
+            </motion.div>
             <Box
               mt={2}
               display="flex"
@@ -76,32 +96,50 @@ const Home: React.FC = () => {
               gap="1rem"
               flexWrap="wrap"
             >
-              <Button
-                variant="contained"
-                color="primary"
-                href="https://github.com/hemraj-007" // Replace with your GitHub URL
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5 }}
               >
-                <GitHub />
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                href="https://www.linkedin.com/in/hemraj7/" // Replace with your LinkedIn URL
+                <Button
+                  variant="contained"
+                  color="primary"
+                  href="https://github.com/hemraj-007"
+                >
+                  <GitHub />
+                </Button>
+              </motion.div>
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
               >
-                <LinkedIn />
-              </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                href="https://leetcode.com/u/hemrajbhatia38/" // Replace with your LeetCode URL
+                <Button
+                  variant="contained"
+                  color="primary"
+                  href="https://www.linkedin.com/in/hemraj7/"
+                >
+                  <LinkedIn />
+                </Button>
+              </motion.div>
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
               >
-                <Box
-                  component="img"
-                  src={leetcode}
-                  alt="LeetCode"
-                  sx={{ width: 24, height: 24, filter: "invert(1)" }} // Invert color to make it white
-                />
-              </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  href="https://leetcode.com/u/hemrajbhatia38/"
+                >
+                  <Box
+                    component="img"
+                    src={leetcode}
+                    alt="LeetCode"
+                    sx={{ width: 24, height: 24, filter: "invert(1)" }}
+                  />
+                </Button>
+              </motion.div>
             </Box>
             <Box
               mt={4}
@@ -111,20 +149,32 @@ const Home: React.FC = () => {
               alignItems="center"
               gap="1rem"
             >
-              <Button
-                variant="outlined"
-                color="secondary"
-                onClick={handleClickOpen} // Open the dialog on button click
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
               >
-                Contact Me
-              </Button>
-              <Button
-                variant="outlined"
-                color="secondary"
-                href="/resume.pdf" // Replace with the URL to your resume
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  onClick={handleClickOpen}
+                >
+                  Contact Me
+                </Button>
+              </motion.div>
+              <motion.div
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
               >
-                Get Resume
-              </Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  href="/resume.pdf"
+                >
+                  Get Resume
+                </Button>
+              </motion.div>
             </Box>
           </Grid>
           <Grid
@@ -135,17 +185,23 @@ const Home: React.FC = () => {
             justifyContent="center"
             alignItems="center"
           >
-            <Box
-              component="img"
-              alt="Profile Image"
-              src={logo}
-              sx={{
-                width: { xs: "100%", md: 500 },
-                height: { xs: "auto", md: 400 },
-                objectFit: "cover",
-                borderRadius: "10%",
-              }}
-            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
+            >
+              <Box
+                component="img"
+                alt="Profile Image"
+                src={logo}
+                sx={{
+                  width: { xs: "100%", md: 500 },
+                  height: { xs: "auto", md: 400 },
+                  objectFit: "cover",
+                  borderRadius: "10%",
+                }}
+              />
+            </motion.div>
           </Grid>
         </Grid>
       </animated.div>

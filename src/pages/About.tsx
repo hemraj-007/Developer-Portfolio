@@ -1,12 +1,11 @@
-// src/pages/About.tsx
 import React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import { useSpring, animated } from "react-spring";
 import Box from "@mui/material/Box";
 import logo from "../assets/profile3.jpg";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const About: React.FC = () => {
@@ -18,21 +17,24 @@ const About: React.FC = () => {
     threshold: 0.1,
   });
 
-  const imageAnimation = useSpring({
-    transform: inView ? "scale(1) rotate(0deg)" : "scale(0.8) rotate(-10deg)",
-    opacity: inView ? 1 : 0,
-    config: { mass: 1, tension: 170, friction: 14 },
-  });
+  const imageVariants = {
+    visible: { opacity: 1, scale: 1, rotate: 0 },
+    hidden: { opacity: 0, scale: 0.8, rotate: -10 },
+  };
 
-  const textAnimation = useSpring({
-    opacity: inView ? 1 : 0,
-    transform: inView ? "translateY(0)" : "translateY(20px)",
-    config: { mass: 1, tension: 170, friction: 14 },
-  });
+  const textVariants = {
+    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 20 },
+  };
 
   return (
     <Container>
-      <animated.div style={textAnimation}>
+      <motion.div
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+        variants={textVariants}
+        transition={{ duration: 0.8 }}
+      >
         <Typography
           variant="h3"
           gutterBottom
@@ -44,7 +46,7 @@ const About: React.FC = () => {
         >
           About Me
         </Typography>
-      </animated.div>
+      </motion.div>
       <Box
         display="flex"
         flexDirection={isMobile ? "column" : "row-reverse"}
@@ -53,7 +55,12 @@ const About: React.FC = () => {
         ref={ref}
       >
         <Box flexShrink={0} mb={isMobile ? 4 : 0} ml={isMobile ? 0 : 4}>
-          <animated.div style={imageAnimation}>
+          <motion.div
+            initial="hidden"
+            animate={inView ? "visible" : "hidden"}
+            variants={imageVariants}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             <Box
               component="img"
               alt="Hemraj Bhatia"
@@ -68,9 +75,14 @@ const About: React.FC = () => {
                 ml: isMobile ? 0 : 4,
               }}
             />
-          </animated.div>
+          </motion.div>
         </Box>
-        <animated.div style={textAnimation}>
+        <motion.div
+          initial="hidden"
+          animate={inView ? "visible" : "hidden"}
+          variants={textVariants}
+          transition={{ duration: 0.8, delay: 0.4 }}
+        >
           <Box
             flex={1}
             sx={{
@@ -98,7 +110,7 @@ const About: React.FC = () => {
               projects.
             </Typography>
           </Box>
-        </animated.div>
+        </motion.div>
       </Box>
     </Container>
   );

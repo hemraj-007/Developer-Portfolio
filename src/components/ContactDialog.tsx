@@ -1,5 +1,5 @@
 // src/components/ContactDialog.tsx
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -12,6 +12,8 @@ import { styled } from "@mui/material/styles";
 import emailjs from "emailjs-com";
 import { AccountCircle, Email, Message } from "@mui/icons-material";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useFormik } from "formik";
+import * as yup from "yup";
 
 interface ContactDialogProps {
   open: boolean;
@@ -37,38 +39,42 @@ const StyledButton = styled(Button)(() => ({
   },
 }));
 
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
+  message: yup
+    .string()
+    .required("Message is required")
+    .min(5, "Message should be at least 5 characters"),
+});
+
 const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      emailjs
+        .send(
+          import.meta.env.VITE_EMAILJS_SERVICE_ID,
+          import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+          values,
+          import.meta.env.VITE_EMAILJS_USER_ID
+        )
+        .then((response) => {
+          console.log("SUCCESS!", response.status, response.text);
+          onClose();
+        })
+        .catch((error) => {
+          console.log("FAILED...", error);
+        });
+    },
   });
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    emailjs
-      .send(
-        "service_un3r2oe", // Replace with your EmailJS service ID
-        "template_dg8pi3n", // Replace with your EmailJS template ID
-        formData,
-        "gWCWHsKHJULQONaMw" // Replace with your EmailJS user ID
-      )
-      .then((response) => {
-        console.log("SUCCESS!", response.status, response.text);
-        onClose();
-      })
-      .catch((error) => {
-        console.log("FAILED...", error);
-      });
-  };
 
   useEffect(() => {
     if (open) {
@@ -103,7 +109,7 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
             gap: 2,
             padding: "0 1rem",
           }}
-          onSubmit={handleSubmit}
+          onSubmit={formik.handleSubmit}
         >
           <TextField
             autoFocus
@@ -113,18 +119,21 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
             fullWidth
             variant="outlined"
             name="name"
-            value={formData.name}
-            onChange={handleChange}
-            InputLabelProps={{ style: { color: "#ffffff" } }} // Set label color to white
+            value={formik.values.name}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.name && Boolean(formik.errors.name)}
+            helperText={formik.touched.name && formik.errors.name}
+            InputLabelProps={{ style: { color: "#ffffff" } }}
             InputProps={{
-              style: { color: "#ffffff" }, // Set input text color to white
+              style: { color: "#ffffff" },
               sx: {
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": { borderColor: "#ffffff" },
                   "&:hover fieldset": { borderColor: "#00FF7F" },
                   "&.Mui-focused fieldset": { borderColor: "#00FF7F" },
                 },
-              }, // Change border color
+              },
               startAdornment: (
                 <InputAdornment position="start">
                   <AccountCircle style={{ color: "#ffffff" }} />
@@ -139,18 +148,21 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
             fullWidth
             variant="outlined"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
-            InputLabelProps={{ style: { color: "#ffffff" } }} // Set label color to white
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.email && Boolean(formik.errors.email)}
+            helperText={formik.touched.email && formik.errors.email}
+            InputLabelProps={{ style: { color: "#ffffff" } }}
             InputProps={{
-              style: { color: "#ffffff" }, // Set input text color to white
+              style: { color: "#ffffff" },
               sx: {
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": { borderColor: "#ffffff" },
                   "&:hover fieldset": { borderColor: "#00FF7F" },
                   "&.Mui-focused fieldset": { borderColor: "#00FF7F" },
                 },
-              }, // Change border color
+              },
               startAdornment: (
                 <InputAdornment position="start">
                   <Email style={{ color: "#ffffff" }} />
@@ -167,18 +179,21 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
             rows={4}
             variant="outlined"
             name="message"
-            value={formData.message}
-            onChange={handleChange}
-            InputLabelProps={{ style: { color: "#ffffff" } }} // Set label color to white
+            value={formik.values.message}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.message && Boolean(formik.errors.message)}
+            helperText={formik.touched.message && formik.errors.message}
+            InputLabelProps={{ style: { color: "#ffffff" } }}
             InputProps={{
-              style: { color: "#ffffff" }, // Set input text color to white
+              style: { color: "#ffffff" },
               sx: {
                 "& .MuiOutlinedInput-root": {
                   "& fieldset": { borderColor: "#ffffff" },
                   "&:hover fieldset": { borderColor: "#00FF7F" },
                   "&.Mui-focused fieldset": { borderColor: "#00FF7F" },
                 },
-              }, // Change border color
+              },
               startAdornment: (
                 <InputAdornment position="start">
                   <Message style={{ color: "#ffffff" }} />
