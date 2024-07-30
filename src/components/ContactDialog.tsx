@@ -14,6 +14,9 @@ import { AccountCircle, Email, Message } from "@mui/icons-material";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { useSnackbar } from "notistack";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface ContactDialogProps {
   open: boolean;
@@ -42,15 +45,26 @@ const StyledButton = styled(Button)(() => ({
 const validationSchema = yup.object({
   email: yup
     .string()
-    .email("Enter a valid email")
-    .required("Email is required"),
+    .email("Enter a valid email address")
+    .required("Email is required")
+    .matches(
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+      "Enter a valid email address"
+    ),
   message: yup
     .string()
     .required("Message is required")
-    .min(5, "Message should be at least 5 characters"),
+    .min(10, "Message should be at least 10 characters")
+    .max(500, "Message should not exceed 500 characters")
+    .matches(
+      /^[a-zA-Z0-9 !@#$%^&*()_+=-]*$/,
+      "Message contains invalid characters"
+    ),
 });
 
 const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -68,10 +82,50 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
         )
         .then((response) => {
           console.log("SUCCESS!", response.status, response.text);
+          enqueueSnackbar("Message sent successfully!", {
+            variant: "success",
+            action: (key) => (
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                sx={{ p: 0.5 }}
+                onClick={() => closeSnackbar(key)}
+              >
+                <CloseIcon />
+              </IconButton>
+            ),
+            style: {
+              backgroundColor: "#f0f0f0",
+              color: "#000000",
+              border: "1px solid #e0e0e0",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+              fontFamily: "Arial, sans-serif",
+            },
+          });
           onClose();
         })
         .catch((error) => {
           console.log("FAILED...", error);
+          enqueueSnackbar("Failed to send message. Please try again.", {
+            variant: "error",
+            action: (key) => (
+              <IconButton
+                aria-label="close"
+                color="inherit"
+                sx={{ p: 0.5 }}
+                onClick={() => closeSnackbar(key)}
+              >
+                <CloseIcon />
+              </IconButton>
+            ),
+            style: {
+              backgroundColor: "#f0f0f0",
+              color: "#000000",
+              border: "1px solid #e0e0e0",
+              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+              fontFamily: "Arial, sans-serif",
+            },
+          });
         });
     },
   });
