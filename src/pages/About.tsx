@@ -1,5 +1,5 @@
 // src/pages/About.tsx
-import React from "react";
+import React, { useState,useEffect } from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import logo from "../assets/profile3.jpg";
@@ -9,10 +9,12 @@ import { useInView } from "react-intersection-observer";
 import { useSpring, animated } from "react-spring";
 import TypewriterHeading from "../components/TypewriterHeading";
 import Typography from "@mui/material/Typography";
+import Loading from "../components/Loading";
 
 const About: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [loading,setLoading]=useState(false);
 
   const [ref, inView] = useInView({
     triggerOnce: true,
@@ -31,10 +33,21 @@ const About: React.FC = () => {
     config: { mass: 1, tension: 170, friction: 14 },
   });
 
+  useEffect(() => {
+    // Simulate a loading delay for the About page
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1000); // Adjust the delay as needed
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading) return <Loading />;
+
   return (
     <Container>
-      <animated.div style={textAnimation}>
-        <TypewriterHeading steps={['About Me', 1000, 'About Me', 2000]} />
+       <animated.div style={textAnimation}>
+        <TypewriterHeading steps={['A', 100, 'Ab', 100, 'Abo', 100, 'Abou', 100, 'About', 100, 'About M', 100, 'About Me']} />
       </animated.div>
       <Box
         display="flex"

@@ -8,3 +8,19 @@ declare module "*.svg" {
 }
 
 declare module "react-typical";
+
+// src/types/custom.d.ts
+import { ShaderMaterial } from 'three';
+
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      kaleidoscopeShaderMaterial: {
+        attach?: string;
+        ref?: React.Ref<ShaderMaterial>;
+        [key: string]: any; // Allow any additional props
+      };
+      planeGeometry: any;
+    }
+  }
+}

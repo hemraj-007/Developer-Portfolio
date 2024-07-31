@@ -12,6 +12,8 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import Marquee from "react-fast-marquee";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import TypewriterHeading from "../components/TypewriterHeading";
+import { useSpring } from "react-spring";
 import {
   FaReact,
   FaNodeJs,
@@ -113,6 +115,7 @@ const projects = [
 const Projects: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const props = useSpring({ opacity: 1, from: { opacity: 0 }, delay: 200 });
   const [isHovered, setIsHovered] = useState(false);
 
   const trail = useTrail(projects.length, {
@@ -145,97 +148,121 @@ const Projects: React.FC = () => {
 
   return (
     <Container>
-      <Typography
-        variant="h3"
-        gutterBottom
-        style={{ color: "#ffffff", textAlign: isMobile ? "center" : "left" }}
-      >
-        Projects
-      </Typography>
-      <Box mb={4}>
-        {trail.map((style, index) => (
-          <animated.div style={style} key={index}>
-            <StyledCard>
-              <CardContent>
-                <Box
-                  display="flex"
-                  flexDirection={isMobile ? "column" : "row"}
-                  justifyContent="space-between"
-                >
-                  <Box>
-                    <Typography variant="h5" style={{ fontWeight: "bold" }}>
-                      {projects[index].title}
-                    </Typography>
-                    <Typography variant="body1" paragraph>
-                      {projects[index].description}
-                    </Typography>
+      <animated.div style={props}>
+        <Box textAlign="left">
+          <TypewriterHeading
+            steps={[
+              "P",
+              100,
+              "Pr",
+              100,
+              "Pro",
+              100,
+              "Proj",
+              100,
+              "Proje",
+              100,
+              "Projec",
+              100,
+              "Project",
+              100,
+              "Projects",
+            ]}
+            align="left"
+          />
+        </Box>
+        <Box mb={4}>
+          {trail.map((style, index) => (
+            <animated.div style={style} key={index}>
+              <StyledCard>
+                <CardContent>
+                  <Box
+                    display="flex"
+                    flexDirection={isMobile ? "column" : "row"}
+                    justifyContent="space-between"
+                  >
                     <Box>
-                      {projects[index].skills.map((skill) => (
-                        <Chip
-                          key={skill}
-                          label={skill}
-                          style={{
-                            marginRight: "0.5rem",
-                            marginBottom: "0.5rem",
-                            backgroundColor: "#00FF7F",
-                            color: "#2c3e50",
-                          }}
-                        />
-                      ))}
+                      <Typography variant="h5" style={{ fontWeight: "bold" }}>
+                        {projects[index].title}
+                      </Typography>
+                      <Typography variant="body1" paragraph>
+                        {projects[index].description}
+                      </Typography>
+                      <Box>
+                        {projects[index].skills.map((skill) => (
+                          <Chip
+                            key={skill}
+                            label={skill}
+                            style={{
+                              marginRight: "0.5rem",
+                              marginBottom: "0.5rem",
+                              backgroundColor: "#00FF7F",
+                              color: "#2c3e50",
+                            }}
+                          />
+                        ))}
+                      </Box>
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        href={projects[index].githubUrl} // Replace with your GitHub URL
+                        startIcon={<GitHubIcon />}
+                        style={{ marginTop: "1rem" }}
+                      >
+                        View on GitHub
+                      </Button>
                     </Box>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      href={projects[index].githubUrl} // Replace with your GitHub URL
-                      startIcon={<GitHubIcon />}
-                      style={{ marginTop: "1rem" }}
-                    >
-                      View on GitHub
-                    </Button>
                   </Box>
-                </Box>
-              </CardContent>
-            </StyledCard>
-          </animated.div>
-        ))}
-      </Box>
-      <Typography
-        variant="h4"
-        gutterBottom
-        style={{
-          color: "#ffffff",
-          marginTop: "2rem",
-          textAlign: isMobile ? "center" : "left",
-        }}
-      >
-        Skills
-      </Typography>
-      <Box
-        mt={4}
-        position="relative"
-        overflow="hidden"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <Marquee
-          speed={30}
-          gradient={false}
-          pauseOnHover={true}
-          play={!isHovered}
-        >
-          {skillIcons.map((skill, index) => (
-            <SkillCard key={index}>
-              {skill.icon}
-              <Typography
-                variant="subtitle1"
-                style={{ color: "#00FF7F", marginTop: "0.5rem" }}
-              >
-                {skill.label}
-              </Typography>
-            </SkillCard>
+                </CardContent>
+              </StyledCard>
+            </animated.div>
           ))}
-        </Marquee>
-      </Box>
+        </Box>
+        <Box textAlign="left">
+          <TypewriterHeading
+            steps={[
+              "S",
+              100,
+              "Sk",
+              100,
+              "Ski",
+              100,
+              "Skil",
+              100,
+              "Skill",
+              100,
+              "Skills",
+            ]}
+            align="left"
+          />
+        </Box>
+        <Box
+          mt={4}
+          position="relative"
+          overflow="hidden"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <Marquee
+            speed={30}
+            gradient={false}
+            pauseOnHover={true}
+            play={!isHovered}
+          >
+            {skillIcons.map((skill, index) => (
+              <SkillCard key={index}>
+                {skill.icon}
+                <Typography
+                  variant="subtitle1"
+                  style={{ color: "#00FF7F", marginTop: "0.5rem" }}
+                >
+                  {skill.label}
+                </Typography>
+              </SkillCard>
+            ))}
+          </Marquee>
+        </Box>
+      </animated.div>
     </Container>
   );
 };

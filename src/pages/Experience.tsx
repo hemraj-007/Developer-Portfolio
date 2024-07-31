@@ -10,6 +10,7 @@ import { styled } from "@mui/material/styles";
 import Chip from "@mui/material/Chip";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import TypewriterHeading from "../components/TypewriterHeading";
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: "#2c3e50",
@@ -21,9 +22,9 @@ const StyledCard = styled(Card)(({ theme }) => ({
     transform: "translateY(-5px)",
     boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)",
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down("sm")]: {
     padding: "1rem",
-  }
+  },
 }));
 
 const skills = {
@@ -71,23 +72,39 @@ const Experience: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const trail = useTrail(experiences.length, {
-    from: { opacity: 0, transform: 'translateY(20px)' },
-    to: { opacity: 1, transform: 'translateY(0)' },
+    from: { opacity: 0, transform: "translateY(20px)" },
+    to: { opacity: 1, transform: "translateY(0)" },
     delay: 200,
   });
 
   return (
     <Container>
-      <Typography
-        variant="h3"
-        gutterBottom
-        style={{
-          color: "#ffffff",
-          textAlign: isMobile ? "center" : "left",
-        }}
-      >
-        Experience
-      </Typography>
+      <Box textAlign="left" mb={4}>
+        <TypewriterHeading
+          steps={[
+            "E",
+            100,
+            "Ex",
+            100,
+            "Exp",
+            100,
+            "Expe",
+            100,
+            "Exper",
+            100,
+            "Experi",
+            100,
+            "Experie",
+            100,
+            "Experien",
+            100,
+            "Experienc",
+            100,
+            "Experience",
+          ]}
+          align="left"
+        />
+      </Box>
       <Box mb={4}>
         {trail.map((style, index) => (
           <animated.div style={style} key={index}>
@@ -99,7 +116,10 @@ const Experience: React.FC = () => {
                   justifyContent="space-between"
                 >
                   <Box>
-                    <Typography variant="subtitle1" style={{ color: "#00FF7F" }}>
+                    <Typography
+                      variant="subtitle1"
+                      style={{ color: "#00FF7F" }}
+                    >
                       {experiences[index].period}
                     </Typography>
                   </Box>
