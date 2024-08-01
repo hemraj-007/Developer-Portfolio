@@ -1,9 +1,9 @@
-// src/components/TypewriterHeading.tsx
 import React from "react";
 import Typical from "react-typical";
 import { styled } from "@mui/material/styles";
 
-const StyledHeading = styled(Typical)(({ theme, align }) => ({
+// Modify StyledHeading to accept and use align for styling but do not pass it to Typical
+const StyledHeading = styled(({ align, ...otherProps }:any) => <Typical {...otherProps} />)(({ theme, align }: any) => ({
   color: "#00FF7F",
   fontSize: "2.5rem",
   textAlign: align || "center", // Use the align prop or default to center
@@ -12,7 +12,7 @@ const StyledHeading = styled(Typical)(({ theme, align }) => ({
   },
   fontWeight: "bold",
   "&::after": {
-    content: "none", // Ensures the cursor is not shown
+    content: "''", // Fixes the content none issue, use empty string for CSS content
   },
 }));
 
