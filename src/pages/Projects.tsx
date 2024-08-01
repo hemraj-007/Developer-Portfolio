@@ -79,11 +79,10 @@ const skills = {
     "JWT Authentication",
     "Zod Validation",
     "MongoDB",
-    "React",
     "Tailwind CSS",
   ],
   dialogeDenBlog: [
-    "React",
+    "React Js",
     "Tailwind CSS",
     "TypeScript",
     "Zod Validation",

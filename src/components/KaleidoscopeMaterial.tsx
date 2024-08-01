@@ -1,49 +1,51 @@
-// src/components/KaleidoscopeMaterial.tsx
-import React, { forwardRef } from 'react';
-import { extend, useFrame } from '@react-three/fiber';
-import { shaderMaterial } from '@react-three/drei';
-import { ShaderMaterial, Vector2 } from 'three';
+// src/components/CustomLoadingAnimation.tsx
+import React, { useRef } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Mesh } from 'three';
+import { OrbitControls } from '@react-three/drei';
+import { styled } from '@mui/material/styles';
+import { Box } from '@mui/material';
 
-const KaleidoscopeShaderMaterial = shaderMaterial(
-  {
-    time: 0,
-    resolution: new Vector2(),
-  },
-  `
-  varying vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-  `,
-  `
-  uniform float time;
-  uniform vec2 resolution;
-  varying vec2 vUv;
+const FullScreenLoader = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: '#2c3e50',
+  color: '#ffffff',
+  zIndex: 1301, // Ensure it appears above all other elements
+}));
 
-  void main() {
-    vec2 p = vUv * 2.0 - 1.0;
-    float r = length(p);
-    float a = atan(p.y, p.x) + time * 0.5;
-    float k = 6.0; // Number of reflections
-    a = mod(a, 2.0 * 3.14159 / k) * k;
-    vec3 color = vec3(0.5 + 0.5 * cos(time + vec3(0.0, 2.0, 4.0)));
-    gl_FragColor = vec4(color, 1.0);
-  }
-  `
-);
-
-extend({ KaleidoscopeShaderMaterial });
-
-const KaleidoscopeMaterial = forwardRef<ShaderMaterial>((props, ref) => {
-  useFrame(({ clock, size }) => {
-    if (ref && 'current' in ref && ref.current) {
-      (ref.current as any).uniforms.time.value = clock.getElapsedTime();
-      (ref.current as any).uniforms.resolution.value.set(size.width, size.height);
-    }
+function Loader() {
+  const mesh = useRef<Mesh>(null!);
+  useFrame(() => {
+    mesh.current.rotation.x += 0.01;
+    mesh.current.rotation.y += 0.01;
   });
+  return (
+    <mesh ref={mesh}>
+      <torusKnotGeometry args={[10, 3, 100, 16]} />
+      <meshBasicMaterial color="cyan" wireframe />
+    </mesh>
+  );
+}
 
-  return <kaleidoscopeShaderMaterial ref={ref} attach="material" {...props} />;
-});
+const CustomLoadingAnimation: React.FC = () => {
+  return (
+    <FullScreenLoader>
+      <Canvas>
+        <ambientLight intensity={0.5} />
+        <pointLight position={[10, 10, 10]} />
+        <Loader />
+        <OrbitControls />
+      </Canvas>
+    </FullScreenLoader>
+  );
+};
 
-export default KaleidoscopeMaterial;
+export default CustomLoadingAnimation;

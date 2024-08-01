@@ -56,7 +56,11 @@ const Home: React.FC = () => {
               <Typography
                 variant="h3"
                 gutterBottom
-                style={{ color: "#ffffff", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
+                style={{
+                  color: "#ffffff",
+                  fontWeight: "bold",
+                  textAlign: isMobile ? "center" : "left",
+                }}
               >
                 Hello,
               </Typography>
@@ -69,7 +73,11 @@ const Home: React.FC = () => {
               <Typography
                 variant="h3"
                 gutterBottom
-                style={{ color: "#ffffff", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
+                style={{
+                  color: "#ffffff",
+                  fontWeight: "bold",
+                  textAlign: isMobile ? "center" : "left",
+                }}
               >
                 This is <span>HEMRAJ BHATIA</span>,
               </Typography>
@@ -82,7 +90,11 @@ const Home: React.FC = () => {
               <Typography
                 variant="h3"
                 gutterBottom
-                style={{ color: "#00FF7F", fontWeight: "bold", textAlign: isMobile ? "center" : "left" }}
+                style={{
+                  color: "#00FF7F",
+                  fontWeight: "bold",
+                  textAlign: isMobile ? "center" : "left",
+                }}
               >
                 I'm a Professional Software Developer.
               </Typography>
@@ -170,7 +182,7 @@ const Home: React.FC = () => {
                 <Button
                   variant="outlined"
                   color="secondary"
-                  href="/resume.pdf"
+                  href="https://drive.google.com/file/d/1lXCQYO2w4tON2yBDipFXCBR6jRnEy0k0/view?usp=sharing"
                 >
                   Get Resume
                 </Button>

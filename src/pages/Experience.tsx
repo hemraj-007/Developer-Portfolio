@@ -1,4 +1,5 @@
 // src/pages/Experience.tsx
+
 import React from "react";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
@@ -28,9 +29,15 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 const skills = {
-  blackcoffer: ["React", "Typescript", "Opensearch", "Elastic EUI", "GitHub"],
+  blackcoffer: [
+    "React Js",
+    "Typescript",
+    "Opensearch",
+    "Elastic EUI",
+    "GitHub",
+  ],
   vesta: [
-    "React",
+    "React Js",
     "TypeScript",
     "Material-UI",
     "PHP Laravel",
@@ -38,16 +45,16 @@ const skills = {
     "MySql",
     "GitHub",
   ],
-  netfotech: ["React", "Tailwind CSS", "React Hooks", "GitHub"],
+  netfotech: ["React Js", "Tailwind CSS", "React Hooks", "GitHub"],
 };
 
 const experiences = [
   {
-    period: "July'24 - present",
+    period: "July'24-present",
     company: "Blackcoffer",
     position: "Software Developer",
     description:
-      "Working on Wazuh, a free and open source security platform unifying XDR and SIEM capabilities. It protects workloads across various environments. Handling frontend operations using TSX and Elastic EUI to enhance data security and user experience.",
+      "I improved Wazuh's UI using React, TypeScript, and Elastic UI, enhancing user experience and security features. Wazuh is a free, open-source security platform that unifies XDR and SIEM capabilities to protect workloads across diverse environments. I gained experience in UI refactoring and integration with security tools.",
     skills: skills.blackcoffer,
   },
   {
@@ -59,7 +66,7 @@ const experiences = [
     skills: skills.vesta,
   },
   {
-    period: "Jan'24 - Mar'24",
+    period: "Jan'24-Mar'24",
     company: "Netfotech Solutions",
     position: "Software Engineer Trainee",
     description:
@@ -114,8 +121,11 @@ const Experience: React.FC = () => {
                   display="flex"
                   flexDirection={isMobile ? "column" : "row"}
                   justifyContent="space-between"
+                  mb={2} // Add marginBottom to create space below the date
                 >
-                  <Box>
+                  <Box mb={1}>
+                    {" "}
+                    {/* Add marginBottom for better spacing */}
                     <Typography
                       variant="subtitle1"
                       style={{ color: "#00FF7F" }}
@@ -123,7 +133,9 @@ const Experience: React.FC = () => {
                       {experiences[index].period}
                     </Typography>
                   </Box>
-                  <Box mt={isMobile ? 2 : 0}>
+                  <Box mt={isMobile ? 2 : 0} ml={isMobile ? 0 : 2}>
+                    {" "}
+                    {/* Add marginTop and marginLeft for spacing */}
                     <Typography variant="h5" style={{ fontWeight: "bold" }}>
                       {experiences[index].company}
                     </Typography>
