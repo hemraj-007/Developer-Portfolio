@@ -11,6 +11,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 import Loading from "./components/Loading";
+import ScrollToTop from "./components/ScrollToTop";
 
 const App: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -31,6 +32,7 @@ const App: React.FC = () => {
         <Loading />
       ) : (
         <BrowserRouter>
+          <ScrollToTop />
           <Header />
           <Routes>
             <Route path="/" element={<Home />} />
