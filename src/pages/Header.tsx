@@ -29,10 +29,9 @@ const Header: React.FC = () => {
       sx={{
         width: "100%",
         padding: 2,
-        backgroundColor: theme.palette.primary.main,
-        position: "absolute",
-        bottom: 0,
+        backgroundColor: theme.palette.background.default,
         borderRadius: "10px 10px 0 0",
+        boxShadow: "0 -4px 8px rgba(0, 0, 0, 0.2)",
       }}
     >
       <List>
@@ -117,21 +116,47 @@ const Header: React.FC = () => {
             <>
               <IconButton
                 color="inherit"
-                edge="start"
+                edge="end"
                 onClick={handleDrawerToggle}
+                sx={{
+                  color: "#ffffff",
+                  background: "radial-gradient(circle, #673ab7, #512da8)",
+                  borderRadius: "50%",
+                  padding: 1.5,
+                  boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2)",
+                  transition: "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
+                  "&:hover": {
+                    transform: "rotate(360deg)",
+                    boxShadow: "0 6px 20px rgba(0, 0, 0, 0.4)",
+                  },
+                }}
               >
-                <MenuIcon />
+                <MenuIcon fontSize="large" />
               </IconButton>
               <Modal
                 open={drawerOpen}
                 onClose={handleDrawerToggle}
+                closeAfterTransition
                 sx={{
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "flex-end",
+                  transition: "all 0.3s ease-in-out",
                 }}
               >
-                {drawer}
+                <Box
+                  sx={{
+                    width: "100%",
+                    maxWidth: 360,
+                    bgcolor: "background.paper",
+                    borderTopLeftRadius: 16,
+                    borderTopRightRadius: 16,
+                    overflow: "hidden",
+                    borderColor: "divider",
+                  }}
+                >
+                  {drawer}
+                </Box>
               </Modal>
             </>
           ) : (
@@ -172,7 +197,7 @@ const Header: React.FC = () => {
           )}
         </Toolbar>
       </AppBar>
-      <Toolbar />{" "}
+      <Toolbar />
     </ThemeProvider>
   );
 };
