@@ -241,12 +241,18 @@ const Projects: React.FC = () => {
           overflow="hidden"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
+          sx={{
+            overflowX: isMobile ? "auto" : "hidden", // Enable horizontal scrolling on mobile
+            display: "flex",
+            WebkitOverflowScrolling: "touch", // Enable smooth scrolling on mobile
+          }}
         >
           <Marquee
             speed={30}
             gradient={false}
             pauseOnHover={true}
             play={!isHovered}
+            style={{ width: isMobile ? "100%" : "auto" }} // Ensure it takes full width on mobile
           >
             {skillIcons.map((skill, index) => (
               <SkillCard key={index}>

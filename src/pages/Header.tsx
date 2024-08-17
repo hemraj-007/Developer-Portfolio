@@ -40,6 +40,13 @@ const Header: React.FC = () => {
           component={RouterLink}
           to="/"
           onClick={handleDrawerToggle}
+          sx={{
+            "&:hover": {
+              backgroundColor: theme.palette.action.hover,
+              transform: "scale(1.05)",
+              transition: "transform 0.2s ease-in-out, background-color 0.2s ease-in-out",
+            },
+          }}
         >
           <ListItemText
             primary="Home"
@@ -51,6 +58,13 @@ const Header: React.FC = () => {
           component={RouterLink}
           to="/about"
           onClick={handleDrawerToggle}
+          sx={{
+            "&:hover": {
+              backgroundColor: theme.palette.action.hover,
+              transform: "scale(1.05)",
+              transition: "transform 0.2s ease-in-out, background-color 0.2s ease-in-out",
+            },
+          }}
         >
           <ListItemText
             primary="About"
@@ -62,6 +76,13 @@ const Header: React.FC = () => {
           component={RouterLink}
           to="/experience"
           onClick={handleDrawerToggle}
+          sx={{
+            "&:hover": {
+              backgroundColor: theme.palette.action.hover,
+              transform: "scale(1.05)",
+              transition: "transform 0.2s ease-in-out, background-color 0.2s ease-in-out",
+            },
+          }}
         >
           <ListItemText
             primary="Experience"
@@ -73,6 +94,13 @@ const Header: React.FC = () => {
           component={RouterLink}
           to="/projects"
           onClick={handleDrawerToggle}
+          sx={{
+            "&:hover": {
+              backgroundColor: theme.palette.action.hover,
+              transform: "scale(1.05)",
+              transition: "transform 0.2s ease-in-out, background-color 0.2s ease-in-out",
+            },
+          }}
         >
           <ListItemText
             primary="Projects & Skills"
