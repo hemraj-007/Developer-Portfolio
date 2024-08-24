@@ -182,7 +182,7 @@ const Home: React.FC = () => {
                 <Button
                   variant="outlined"
                   color="secondary"
-                  href="https://drive.google.com/file/d/1lXCQYO2w4tON2yBDipFXCBR6jRnEy0k0/view?usp=sharing"
+                  href="https://drive.google.com/file/d/1pIeYdqGbz5zTYOzUZNULYpfgBoFkEmBo/view?usp=drive_link"
                 >
                   Get Resume
                 </Button>
