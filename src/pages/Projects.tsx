@@ -40,6 +40,8 @@ import {
 } from "react-icons/si";
 import img from "../assets/project1.png";
 import img2 from "../assets/project-3.png";
+import img3 from '../assets/project4.png';
+import img4 from '../assets/project5.png';
 
 const StyledCard = styled(Card)(() => ({
   backgroundColor: "#2c3e50",
@@ -92,22 +94,54 @@ const skills = {
     "JWTs",
     "Monorepo",
   ],
+  m32ai: [
+    "React Js",
+    "Node Js",
+    "MongoDB",
+    "Cohere LLM API",
+    "JWT Authentication",
+    "PDF Parsing",
+    "Tailwind CSS",
+    "Vercel",
+    "Render",
+  ],
+  cityScope: [
+    "React Js",
+    "Node Js",
+    "Express Js",
+    "Prisma ORM",
+    "PostgreSQL",
+    "JWT Authentication",
+    "Tailwind CSS",
+    "Social Features",
+    "MERN Stack",
+  ],
 };
 
 // Define project images
 const projectImages = {
   payInstaWallet: img,
   dialogeDenBlog: img2,
+  m32ai:img3,
+  cityScope:img4,
 };
 
 const projects = [
   {
-    title: "Pay-Insta-Wallet",
+    title: "M32 AI Assistant",
     description:
-      "Developed a Payment system using the MERN stack, featuring essential digital wallet functionalities from user registration to transactions. Implemented robust security with JWT authentication, Zod validation, and CORS, combined with MongoDB for efficient data management. Enhanced user interface and experience with React and Tailwind CSS, ensuring a responsive and intuitive design.",
-    skills: skills.payInstaWallet,
-    githubUrl: "https://github.com/hemraj-007/pay-insta-wallet",
-    imageUrl: projectImages.payInstaWallet,
+      "Built an AI-powered educational tool using React, Node.js, and Cohere’s LLM API. Implemented PDF upload with auto-text extraction, role-based access, and contextual prompt generation. Used MongoDB for storage, JWT for authentication, and Tailwind CSS for UI. Deployed on Vercel and Render, offering a modern UX with real-time feedback and document-based AI responses.",
+    skills: skills.m32ai,
+    githubUrl: "https://github.com/hemraj-007/m32ai",
+    imageUrl: projectImages.m32ai,
+  },
+  {
+    title: "Cityscope",
+    description:
+      "Developed a MERN stack social media app enabling users to create posts, reply, like/dislike, and manage profiles. Used JWT for secure authentication, React with Tailwind for a sleek UI, and Prisma with PostgreSQL for efficient data operations. Focused on clean state management, real-time interactions, and modern frontend design with API integration.",
+    skills: skills.cityScope,
+    githubUrl: "https://github.com/hemraj-007/cityscope",
+    imageUrl: projectImages.cityScope,
   },
   {
     title: "DialogeDen Blog",
@@ -116,6 +150,14 @@ const projects = [
     skills: skills.dialogeDenBlog,
     githubUrl: "https://github.com/hemraj-007/DialogDen",
     imageUrl: projectImages.dialogeDenBlog,
+  },
+  {
+    title: "Pay-Insta-Wallet",
+    description:
+      "Developed a Payment system using the MERN stack, featuring essential digital wallet functionalities from user registration to transactions. Implemented robust security with JWT authentication, Zod validation, and CORS, combined with MongoDB for efficient data management. Enhanced user interface and experience with React and Tailwind CSS, ensuring a responsive and intuitive design.",
+    skills: skills.payInstaWallet,
+    githubUrl: "https://github.com/hemraj-007/pay-insta-wallet",
+    imageUrl: projectImages.payInstaWallet,
   },
 ];
 
