@@ -9,8 +9,8 @@ declare module "*.svg" {
 
 declare module "react-typical";
 
-// src/types/custom.d.ts
-import { ShaderMaterial } from 'three';
+import type * as React from "react";
+import { ShaderMaterial } from "three";
 
 declare global {
   namespace JSX {
@@ -18,14 +18,14 @@ declare global {
       kaleidoscopeShaderMaterial: {
         attach?: string;
         ref?: React.Ref<ShaderMaterial>;
-        [key: string]: any; // Allow any additional props
+        [key: string]: unknown;
       };
-      planeGeometry: any;
+      planeGeometry: Record<string, unknown>;
     }
   }
 }
 
-declare module 'react-typical' {
-  const Typical: any;
+declare module "react-typical" {
+  const Typical: React.ComponentType<Record<string, unknown>>;
   export default Typical;
 }

@@ -1,0 +1,81 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+
+:root {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f6f4ef;
+  color: #1a2332;
+}
+
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 50% at 85% 15%, rgba(184, 212, 232, 0.55), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 10% 80%, rgba(201, 184, 150, 0.35), transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 0%, rgba(255, 255, 255, 0.9), transparent 60%),
+    linear-gradient(165deg, #fffef9 0%, #f6f4ef 45%, #ebe6dc 100%);
+}
+
+.hero-photo-frame {
+  position: relative;
+  border-radius: 28px;
+  padding: 10px;
+  background: linear-gradient(145deg, #ffffff 0%, #f0ebe3 100%);
+  box-shadow:
+    0 4px 6px rgba(28, 43, 58, 0.04),
+    0 24px 48px rgba(28, 43, 58, 0.12),
+    0 0 0 1px rgba(28, 43, 58, 0.06);
+}
+
+.hero-photo-frame::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 30px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(45, 106, 79, 0.35), rgba(184, 212, 232, 0.5));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.hero-photo {
+  display: block;
+  width: 100%;
+  min-height: 420px;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: center 22%;
+  border-radius: 20px;
+  background: #e8e4dc;
+}
+
+@media (max-width: 900px) {
+  .hero-photo {
+    min-height: 360px;
+    max-height: 440px;
+  }
+}

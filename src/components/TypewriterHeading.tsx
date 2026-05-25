@@ -2,23 +2,28 @@ import React from "react";
 import Typical from "react-typical";
 import { styled } from "@mui/material/styles";
 
-// Modify StyledHeading to accept and use align for styling but do not pass it to Typical
-const StyledHeading = styled(({ align, ...otherProps }:any) => <Typical {...otherProps} />)(({ theme, align }: any) => ({
+interface StyledHeadingProps {
+  align?: "left" | "center" | "right";
+}
+
+const StyledHeading = styled(Typical, {
+  shouldForwardProp: (prop) => prop !== "align",
+})<StyledHeadingProps>(({ theme, align = "center" }) => ({
   color: "#00FF7F",
   fontSize: "2.5rem",
-  textAlign: align || "center", // Use the align prop or default to center
+  textAlign: align,
   [theme.breakpoints.up("sm")]: {
     fontSize: "3.5rem",
   },
   fontWeight: "bold",
   "&::after": {
-    content: "''", // Fixes the content none issue, use empty string for CSS content
+    content: "''",
   },
 }));
 
 interface TypewriterHeadingProps {
   steps: (string | number)[];
-  align?: string;
+  align?: "left" | "center" | "right";
 }
 
 const TypewriterHeading: React.FC<TypewriterHeadingProps> = ({
