@@ -1,4 +1,3 @@
-// src/components/ContactDialog.tsx
 import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -6,9 +5,8 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
-import { Typography } from "@mui/material";
+import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { styled } from "@mui/material/styles";
 import emailjs from "emailjs-com";
 import { AccountCircle, Email, Message } from "@mui/icons-material";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -23,55 +21,24 @@ interface ContactDialogProps {
   onClose: () => void;
 }
 
-const StyledDialog = styled(Dialog)({
-  "& .MuiPaper-root": {
-    borderRadius: "20px",
-    backgroundColor: "#2c3e50",
-    color: "#ffffff",
-    width: "400px",
-    height: "auto",
-    maxWidth: "none",
-  },
-});
-
-const StyledButton = styled(Button)(() => ({
-  color: "#ffffff",
-  "&:hover": {
-    backgroundColor: "#00FF7F",
-    color: "#2c3e50",
-  },
-}));
-
 const validationSchema = yup.object({
   email: yup
     .string()
     .email("Enter a valid email address")
-    .required("Email is required")
-    .matches(
-      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-      "Enter a valid email address"
-    ),
+    .required("Email is required"),
   message: yup
     .string()
     .required("Message is required")
     .min(10, "Message should be at least 10 characters")
-    .max(500, "Message should not exceed 500 characters")
-    .matches(
-      /^[a-zA-Z0-9 !@#$%^&*()_+=-]*$/,
-      "Message contains invalid characters"
-    ),
+    .max(500, "Message should not exceed 500 characters"),
 });
 
 const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   const formik = useFormik({
-    initialValues: {
-      name: "",
-      email: "",
-      message: "",
-    },
-    validationSchema: validationSchema,
+    initialValues: { name: "", email: "", message: "" },
+    validationSchema,
     onSubmit: (values) => {
       emailjs
         .send(
@@ -80,188 +47,133 @@ const ContactDialog: React.FC<ContactDialogProps> = ({ open, onClose }) => {
           values,
           import.meta.env.VITE_EMAILJS_USER_ID
         )
-        .then((response) => {
-          console.log("SUCCESS!", response.status, response.text);
+        .then(() => {
           enqueueSnackbar("Message sent successfully!", {
             variant: "success",
             action: (key) => (
               <IconButton
                 aria-label="close"
-                color="inherit"
-                sx={{ p: 0.5 }}
+                size="small"
                 onClick={() => closeSnackbar(key)}
               >
-                <CloseIcon />
+                <CloseIcon fontSize="small" />
               </IconButton>
             ),
-            style: {
-              backgroundColor: "#f0f0f0",
-              color: "#000000",
-              border: "1px solid #e0e0e0",
-              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-              fontFamily: "Arial, sans-serif",
-            },
           });
+          formik.resetForm();
           onClose();
         })
-        .catch((error) => {
-          console.log("FAILED...", error);
+        .catch(() => {
           enqueueSnackbar("Failed to send message. Please try again.", {
             variant: "error",
-            action: (key) => (
-              <IconButton
-                aria-label="close"
-                color="inherit"
-                sx={{ p: 0.5 }}
-                onClick={() => closeSnackbar(key)}
-              >
-                <CloseIcon />
-              </IconButton>
-            ),
-            style: {
-              backgroundColor: "#f0f0f0",
-              color: "#000000",
-              border: "1px solid #e0e0e0",
-              boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
-              fontFamily: "Arial, sans-serif",
-            },
           });
         });
     },
   });
 
   useEffect(() => {
-    if (open) {
-      document.getElementById("root")!.style.filter = "blur(5px)";
-    } else {
-      document.getElementById("root")!.style.filter = "none";
-    }
-
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     return () => {
-      document.getElementById("root")!.style.filter = "none";
+      document.body.style.overflow = prev;
     };
   }, [open]);
 
   return (
-    <StyledDialog open={open} onClose={onClose}>
-      <DialogTitle sx={{ color: "#ffffff", textAlign: "center" }}>
-        Contact Me
+    <Dialog
+      open={open}
+      onClose={onClose}
+      fullWidth
+      maxWidth="sm"
+      PaperProps={{
+        sx: {
+          borderRadius: "20px",
+          bgcolor: "#ffffff",
+          m: { xs: 2, sm: 3 },
+        },
+      }}
+    >
+      <DialogTitle sx={{ fontWeight: 700, textAlign: "center", pb: 0 }}>
+        Get in touch
       </DialogTitle>
       <DialogContent>
         <Typography
           variant="body2"
           align="center"
-          sx={{ color: "#ffffff", marginBottom: "1rem" }}
+          color="text.secondary"
+          sx={{ mb: 2 }}
         >
-          Please fill out the form below to get in touch with me.
+          Share a bit about your role or project — I&apos;ll reply as soon as I can.
         </Typography>
         <Box
           component="form"
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 2,
-            padding: "0 1rem",
-          }}
           onSubmit={formik.handleSubmit}
+          sx={{ display: "flex", flexDirection: "column", gap: 2 }}
         >
           <TextField
-            autoFocus
-            margin="dense"
             label="Name"
-            type="text"
-            fullWidth
-            variant="outlined"
             name="name"
+            fullWidth
             value={formik.values.name}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.name && Boolean(formik.errors.name)}
-            helperText={formik.touched.name && formik.errors.name}
-            InputLabelProps={{ style: { color: "#ffffff" } }}
             InputProps={{
-              style: { color: "#ffffff" },
-              sx: {
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": { borderColor: "#ffffff" },
-                  "&:hover fieldset": { borderColor: "#00FF7F" },
-                  "&.Mui-focused fieldset": { borderColor: "#00FF7F" },
-                },
-              },
               startAdornment: (
                 <InputAdornment position="start">
-                  <AccountCircle style={{ color: "#ffffff" }} />
+                  <AccountCircle color="action" />
                 </InputAdornment>
               ),
             }}
           />
           <TextField
-            margin="dense"
             label="Email"
+            name="email"
             type="email"
             fullWidth
-            variant="outlined"
-            name="email"
             value={formik.values.email}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            InputLabelProps={{ style: { color: "#ffffff" } }}
             InputProps={{
-              style: { color: "#ffffff" },
-              sx: {
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": { borderColor: "#ffffff" },
-                  "&:hover fieldset": { borderColor: "#00FF7F" },
-                  "&.Mui-focused fieldset": { borderColor: "#00FF7F" },
-                },
-              },
               startAdornment: (
                 <InputAdornment position="start">
-                  <Email style={{ color: "#ffffff" }} />
+                  <Email color="action" />
                 </InputAdornment>
               ),
             }}
           />
           <TextField
-            margin="dense"
             label="Message"
-            type="text"
-            fullWidth
+            name="message"
             multiline
             rows={4}
-            variant="outlined"
-            name="message"
+            fullWidth
             value={formik.values.message}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.message && Boolean(formik.errors.message)}
             helperText={formik.touched.message && formik.errors.message}
-            InputLabelProps={{ style: { color: "#ffffff" } }}
             InputProps={{
-              style: { color: "#ffffff" },
-              sx: {
-                "& .MuiOutlinedInput-root": {
-                  "& fieldset": { borderColor: "#ffffff" },
-                  "&:hover fieldset": { borderColor: "#00FF7F" },
-                  "&.Mui-focused fieldset": { borderColor: "#00FF7F" },
-                },
-              },
               startAdornment: (
-                <InputAdornment position="start">
-                  <Message style={{ color: "#ffffff" }} />
+                <InputAdornment position="start" sx={{ alignSelf: "flex-start", mt: 1 }}>
+                  <Message color="action" />
                 </InputAdornment>
               ),
             }}
           />
-          <DialogActions sx={{ justifyContent: "center" }}>
-            <StyledButton onClick={onClose}>Cancel</StyledButton>
-            <StyledButton type="submit">Send</StyledButton>
+          <DialogActions sx={{ px: 0, pb: 0, justifyContent: "center", gap: 1 }}>
+            <Button onClick={onClose} color="inherit">
+              Cancel
+            </Button>
+            <Button type="submit" variant="contained" disabled={formik.isSubmitting}>
+              Send message
+            </Button>
           </DialogActions>
         </Box>
       </DialogContent>
-    </StyledDialog>
+    </Dialog>
   );
 };
 

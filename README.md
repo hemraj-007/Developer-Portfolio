@@ -1,3 +1,27 @@
+# Hemraj Bhatia — Developer Portfolio
+
+Single-page portfolio built with React, TypeScript, Vite, MUI, and Framer Motion.
+
+## Contact form (EmailJS)
+
+Create a `.env` file in the project root:
+
+```env
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_USER_ID=your_user_id
+```
+
+The **Hire Me** and footer **Contact Me** buttons open the in-app contact dialog when these variables are set.
+
+## Scripts
+
+- `npm run dev` — local development
+- `npm run build` — production build
+- `npm run preview` — preview production build
+
+---
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.

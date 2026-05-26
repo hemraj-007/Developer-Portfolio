@@ -23,10 +23,11 @@ const theme = createTheme({
     h1: {
       fontFamily: "'Fraunces', 'Plus Jakarta Sans', serif",
       fontWeight: 600,
-      fontSize: "clamp(2.4rem, 6vw, 4.2rem)",
-      lineHeight: 1.1,
+      fontSize: "clamp(2rem, 8vw, 4.2rem)",
+      lineHeight: 1.12,
       color: "#1a2332",
       letterSpacing: "-0.02em",
+      wordBreak: "break-word",
     },
     h2: {
       fontFamily: "'Fraunces', 'Plus Jakarta Sans', serif",
@@ -36,13 +37,23 @@ const theme = createTheme({
       letterSpacing: "-0.02em",
     },
     h4: {
-      fontSize: "clamp(1.05rem, 2.2vw, 1.45rem)",
+      fontSize: "clamp(1rem, 3.5vw, 1.45rem)",
       fontWeight: 500,
       color: "#2d6a4f",
-      lineHeight: 1.45,
+      lineHeight: 1.5,
     },
   },
   components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          "@media (max-width:600px)": {
+            paddingLeft: 16,
+            paddingRight: 16,
+          },
+        },
+      },
+    },
     MuiCssBaseline: {
       styleOverrides: {
         body: {
