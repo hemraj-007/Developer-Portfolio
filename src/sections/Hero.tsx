@@ -89,8 +89,8 @@ const Hero: React.FC<HeroProps> = ({
           icon={<WbSunnyOutlinedIcon />}
           label={
             isMobile
-              ? "Open to full-time roles"
-              : "Building clean, confident product experiences"
+              ? "Open to remote roles"
+              : "Remote software engineer building production web products"
           }
           sx={{
             mb: 2,
@@ -113,7 +113,7 @@ const Hero: React.FC<HeroProps> = ({
         </Typography>
         {prefersReducedMotion ? (
           <HeroRoleStatic
-            text="Software Engineer · Next.js · Full Stack"
+            text="Remote Software Engineer · Next.js · Full Stack"
             align={isMobile ? "center" : "left"}
           />
         ) : (
@@ -128,9 +128,9 @@ const Hero: React.FC<HeroProps> = ({
             mx: { xs: "auto", md: 0 },
           }}
         >
-          I take ownership from architecture to deployment — migrating legacy frontends,
-          integrating APIs, and shipping features that are clear for users and reliable for
-          teams. Based in Jaipur, open to full-time roles.
+          I build remote-friendly web products across React, Next.js, TypeScript, and
+          Node.js - from frontend architecture and API integration to deployments and
+          client-facing delivery. Based in Jaipur, working with distributed teams.
         </Typography>
         <Stack
           direction={{ xs: "column", sm: "row" }}
@@ -146,7 +146,7 @@ const Hero: React.FC<HeroProps> = ({
             endIcon={<ArrowOutwardIcon />}
             onClick={onContactOpen}
           >
-            Hire Me
+            Hire Remotely
           </Button>
           <Button
             variant="outlined"

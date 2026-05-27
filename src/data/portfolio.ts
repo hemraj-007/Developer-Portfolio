@@ -12,22 +12,29 @@ export const skills = [
   "Next.js",
   "React",
   "TypeScript",
+  "Redux",
+  "Zustand",
+  "React Query",
   "Node.js",
   "Express",
   "PostgreSQL",
   "Prisma",
   "MongoDB",
   "Tailwind CSS",
+  "NextAuth",
+  "Cloudflare Workers",
+  "OpenAI APIs",
+  "REST APIs",
   "AWS Amplify",
   "Elastic UI",
 ];
 
 export const heroRoleSteps: (string | number)[] = [
-  "Software Engineer",
+  "Remote Software Engineer",
   2000,
-  "Next.js Developer",
+  "Next.js / React Engineer",
   2000,
-  "Full Stack Builder",
+  "Full Stack Product Builder",
   2000,
 ];
 
@@ -35,9 +42,8 @@ export const links = {
   email: "hemrajbhatia38@gmail.com",
   github: "https://github.com/hemraj-007",
   linkedin: "https://www.linkedin.com/in/hemraj7/",
-  resume:
-    "https://drive.google.com/file/d/1iNaiS1sJtjHirXd0DGZWQ6luqCMZyIVa/view",
-  location: "Jaipur, Rajasthan, India",
+  resume: "/Hemraj_Bhatia_Resume.pdf",
+  location: "Jaipur, Rajasthan, India - Remote",
 };
 
 export type Experience = {
@@ -63,9 +69,9 @@ export const experiences: Experience[] = [
     role: "Software Engineer",
     period: "Jul 2024 — Present",
     highlights: [
-      "Own frontend delivery on PreEmpt, an AI-powered strategic decision platform — leading a production migration from legacy HTML/CSS/JS to Next.js with a scalable app architecture.",
-      "Integrate React and TypeScript UIs with Node.js + Express APIs and ship reliably through AWS Amplify.",
-      "Act as second lead across three client projects: requirement discussions, technical planning, and end-to-end frontend execution with Elastic UI.",
+      "Lead frontend execution for PreEmpt, an AI-powered strategic decision intelligence platform, moving a production interface from legacy HTML/CSS/JavaScript into a scalable Next.js architecture.",
+      "Build React and TypeScript product surfaces that connect with Node.js + Express APIs, OpenAI-powered response flows, and external service integrations.",
+      "Work as second lead across three client-facing projects, joining requirement calls and delivering remote-ready frontend solutions with Elastic UI.",
     ],
   },
   {
@@ -73,8 +79,8 @@ export const experiences: Experience[] = [
     role: "Software Developer Intern",
     period: "Mar 2024 — Jun 2024",
     highlights: [
-      "Shipped React, TypeScript, and Material UI improvements that strengthened product usability and reduced support friction on a live platform.",
-      "Debugged and hardened PHP Laravel APIs while contributing across repos — improving review throughput and backend stability.",
+      "Improved a live QA platform with React, TypeScript, and Material UI updates that lifted engagement and reduced UI-related support friction.",
+      "Debugged PHP Laravel APIs and contributed across multiple repositories, strengthening performance and review speed for the team.",
     ],
   },
   {
@@ -82,7 +88,7 @@ export const experiences: Experience[] = [
     role: "Software Engineer Trainee",
     period: "Jan 2024 — Mar 2024",
     highlights: [
-      "Built BookMyStall with React and Tailwind CSS — responsive booking flows, reusable components, and performance-minded UI patterns for real users.",
+      "Built BookMyStall with React and Tailwind CSS, focusing on responsive booking flows that held up cleanly across mobile and desktop.",
     ],
   },
 ];
@@ -92,7 +98,7 @@ export const projects: Project[] = [
     title: "SubTrack",
     tagline: "Subscription & spend intelligence",
     description:
-      "Parses uploaded CSV/PDF statements to auto-detect recurring charges, surfaces spend trends and category breakdowns on an analytics dashboard, and sends renewal reminders plus weekly digests — cutting manual tracking entirely.",
+      "Full-stack subscription tracker that reads CSV/PDF bank statements, detects recurring charges, visualizes spend trends, and warns users before renewals become unwanted charges.",
     tech: ["Next.js", "Node.js", "Express", "PDF/CSV parsing", "Analytics"],
     image: projectTwo,
     githubUrl: "https://github.com/hemraj-007/SubTrack",
@@ -101,8 +107,8 @@ export const projects: Project[] = [
     title: "Cityscope",
     tagline: "Full-stack community platform",
     description:
-      "Architected a community platform from scratch — auth, posts, likes, replies, and profiles — with JWT-secured APIs, Prisma on PostgreSQL, and deployments on Vercel (frontend) and Render (backend) for steady continuous delivery.",
-    tech: ["React", "TypeScript", "Node.js", "PostgreSQL", "Prisma", "JWT"],
+      "Community platform built from the ground up with authentication, content creation, likes, replies, filtering, JWT-secured APIs, Prisma, and separate frontend/backend deployments.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Node.js", "PostgreSQL", "Prisma"],
     image: projectOne,
     githubUrl: "https://github.com/hemraj-007/cityscope",
   },

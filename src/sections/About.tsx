@@ -51,7 +51,7 @@ const About: React.FC<AboutProps> = ({ marqueeEnabled }) => {
           <Box
             component="img"
             src={brandMark}
-            alt="React and Next.js — core stack"
+            alt="React and Next.js core stack"
             className="brand-mark-img"
             loading="lazy"
             decoding="async"
@@ -70,11 +70,12 @@ const About: React.FC<AboutProps> = ({ marqueeEnabled }) => {
               overflowWrap: "break-word",
             }}
           >
-            Full stack engineer with hands-on experience across SaaS-style products, AI
-            platforms, and consumer-facing apps. I work comfortably across the stack — Next.js
-            and React on the front, Node/Express on the back, and cloud deploys on AWS
-            Amplify and Vercel. I care about readable code, predictable UX, and shipping on
-            deadline without cutting quality.
+            Remote software engineer with hands-on experience across AI decision platforms,
+            SaaS tools, and community products. I work across Next.js, React, TypeScript,
+            Node.js, Express, Prisma, PostgreSQL, and MongoDB, with a strong feel for
+            frontend architecture, API integration, and async collaboration. I am strongest
+            on product UI and frontend systems, while actively growing into backend tasks
+            like REST APIs, OpenAI integrations, and multi-service response workflows.
           </Typography>
           <SkillsMarquee play={marqueeEnabled} />
         </Box>

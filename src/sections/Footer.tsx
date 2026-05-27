@@ -50,7 +50,7 @@ const Footer: React.FC<FooterProps> = ({ onContactOpen }) => {
       >
         <Box>
           <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
-            Let&apos;s build something together
+            Let&apos;s build remotely
           </Typography>
           <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mb: 0.5 }}>
             <EmailIcon fontSize="small" color="action" />
